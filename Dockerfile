@@ -2,38 +2,39 @@ FROM rnakato/ubuntu:18.04
 LABEL original from duplexa/4dn-hic, modified by Ryuichiro Nakato <rnakato@iam.u-tokyo.ac.jp>
 
 # 1. general updates & installing necessary Linux components
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     bzip2 \
+    default-jdk \
+    gawk \
     gcc \
     git \
     less \
+    liblz4-tool \
     libncurses-dev \
     libxml2-dev \
     make \
+    python3.6-dev \
+    python3-setuptools \
     time \
     unzip \
     vim \
     wget \
     zlib1g-dev \
-    liblz4-tool
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# installing python3.6 & pip
-RUN apt-get update -y && apt-get install -y \
-    python3.6-dev \
-    python3-setuptools \
-    && wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate \
+RUN wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate \
     && python3.6 get-pip.py
 
-# installing java (for nozzle) - latest java version
-RUN apt-get update -y && apt-get install -y default-jdk
-
 # installing R & dependencies for pairsqc
-# r-base, r-base-dev for R, libcurl4-openssl-dev, libssl-dev for devtools
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libssl-dev \
     r-base \
-    r-base-dev
+    r-base-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN R CMD javareconf \
     && R -e 'install.packages("devtools", repos="https://cran.ism.ac.jp/")' \
@@ -48,8 +49,7 @@ RUN conda update -y conda \
     && rm Miniconda2-latest-Linux-x86_64.sh
 
 # installing gawk for juicer
-RUN apt-get update -y && apt-get install -y gawk \
-    && echo 'alias awk=gawk' >> ~/.bashrc
+RUN echo 'alias awk=gawk' >> ~/.bashrc
 
 # download tools
 WORKDIR /usr/local/bin
