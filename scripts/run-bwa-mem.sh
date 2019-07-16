@@ -2,20 +2,14 @@
 
 fastq1=$1
 fastq2=$2
-index_file=$3
-outdir=$4
-prefix=$5
-nThreads=$6
+index=$3
+prefix=$4
+nThreads=$5
 
 if [[ $outdir != '.' ]]
 then
   cd $outdir
 fi
-
-# unzip index
-####tar -xzf $index_file
-####index=`ls -1 *.bwt | head -1 | sed 's/\.bwt//g'`
-index=$index_file
 
 # unzip fastq files
 if [[ $fastq1 =~ \.gz$ ]]
