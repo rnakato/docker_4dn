@@ -12,5 +12,5 @@ Rscript $scriptdir/plot.r $enzyme $sample_name\_QCreport
 #zip -r $sample_name\_report.zip $sample_name\_report
 if [[ $outdir != "." ]]; then
   mkdir -p $outdir
-  mv $sample_name\_report.zip $outdir
+  mv $sample_name\_report $outdir
 fi
