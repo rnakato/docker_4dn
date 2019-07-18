@@ -8,9 +8,9 @@ max_distance=$6
 
 scriptdir=/usr/local/bin/pairsqc/
 python3 $scriptdir/pairsqc.py -p $input_pairs -c $chromsize -tP -s $sample_name -O $sample_name -M $max_distance
-Rscript $scriptdir/plot.r $enzyme $sample_name\_QCreport
+Rscript $scriptdir/plot.r $enzyme QCreport
 #zip -r $sample_name\_report.zip $sample_name\_report
-if [[ $outdir != "." ]]; then
-  mkdir -p $outdir
-  mv $sample_name\_report $outdir
-fi
+#if [[ $outdir != "." ]]; then
+ # mkdir -p $outdir
+ # mv $sample_name\_report $outdir
+#fi
