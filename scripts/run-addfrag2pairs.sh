@@ -1,8 +1,8 @@
 #!/bin/bash
 shopt -s extglob
-input_pairs=''
-restriction_file=''  # Juicer format
-output_prefix=out
+input_pairs=$1
+restriction_file=$2
+output_prefix=$3
 
 printHelpAndExit() {
     echo "Usage: ${0##*/} [-o out_prefix] -i input_pairs -r restriction_site_file"
