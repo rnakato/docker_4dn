@@ -42,6 +42,9 @@ RUN R CMD javareconf \
     && R -e 'library(devtools); install_url("https://github.com/SooLee/plotosaurus/archive/0.9.2.zip")' \
     && R -e 'install.packages("stringr", repos="https://cran.ism.ac.jp/" )'
 
+# pip
+RUN pip3 install matplotlib
+
 # installing conda
 RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh && bash Miniconda2-latest-Linux-x86_64.sh -p /miniconda2 -b
 ENV PATH=/miniconda2/bin:$PATH
