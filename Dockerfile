@@ -1,7 +1,6 @@
-FROM rnakato/ubuntu:18.04
+FROM rnakato/ubuntu:20.04
 LABEL original from duplexa/4dn-hic, modified by Ryuichiro Nakato <rnakato@iam.u-tokyo.ac.jp>
 
-# 1. general updates & installing necessary Linux components
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     bzip2 \
@@ -14,7 +13,7 @@ RUN apt-get update \
     libncurses-dev \
     libxml2-dev \
     make \
-    python3.6-dev \
+    python3.8-dev \
     python3-setuptools \
     time \
     unzip \
@@ -25,7 +24,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate \
-    && python3.6 get-pip.py
+    && python3.8 get-pip.py
 
 # installing R & dependencies for pairsqc
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -39,11 +38,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN R CMD javareconf \
     && R -e 'install.packages("devtools", repos="https://cran.ism.ac.jp/")' \
     && R -e 'install.packages( "Nozzle.R1", type="source", repos="https://cran.ism.ac.jp/" )' \
+    && R -e 'install.packages("sm", repos="https://cran.ism.ac.jp/")' \
     && R -e 'library(devtools); install_url("https://github.com/SooLee/plotosaurus/archive/0.9.2.zip")' \
     && R -e 'install.packages("stringr", repos="https://cran.ism.ac.jp/" )'
 
 # pip
-RUN pip3 install matplotlib
+RUN pip3 install matplotlib hicexplorer
 
 # installing conda
 RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh && bash Miniconda2-latest-Linux-x86_64.sh -p /miniconda2 -b
