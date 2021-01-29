@@ -1,5 +1,5 @@
-FROM rnakato/ubuntu:20.04
-LABEL original from duplexa/4dn-hic, modified by Ryuichiro Nakato <rnakato@iam.u-tokyo.ac.jp>
+FROM rnakato/ubuntu:18.04
+LABEL original from duplexa/4dn-hic, modified by Ryuichiro Nakato <rnakato@iqb.u-tokyo.ac.jp>
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -13,7 +13,7 @@ RUN apt-get update \
     libncurses-dev \
     libxml2-dev \
     make \
-    python3.8-dev \
+    python3.6-dev \
     python3-setuptools \
     time \
     unzip \
@@ -24,7 +24,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget https://bootstrap.pypa.io/get-pip.py --no-check-certificate \
-    && python3.8 get-pip.py
+    && python3.6 get-pip.py
 
 # installing R & dependencies for pairsqc
 RUN apt-get update && apt-get install -y --no-install-recommends \
