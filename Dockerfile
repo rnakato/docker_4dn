@@ -15,6 +15,7 @@ RUN apt-get update \
     make \
     python3.6-dev \
     python3-setuptools \
+    samtools \
     time \
     unzip \
     vim \
@@ -42,14 +43,13 @@ RUN R CMD javareconf \
     && R -e 'library(devtools); install_url("https://github.com/SooLee/plotosaurus/archive/0.9.2.zip")' \
     && R -e 'install.packages("stringr", repos="https://cran.ism.ac.jp/" )'
 
-# pip
-RUN pip3 install matplotlib hicexplorer
+RUN pip3 install matplotlib hicexplorer numpy scipy pandas ipython
 
 # installing conda
-RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh && bash Miniconda2-latest-Linux-x86_64.sh -p /miniconda2 -b
-ENV PATH=/miniconda2/bin:$PATH
-RUN conda update -y conda \
+RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh \
+    && bash Miniconda2-latest-Linux-x86_64.sh -p /miniconda2 -b \
     && rm Miniconda2-latest-Linux-x86_64.sh
+ENV PATH=/miniconda2/bin:$PATH
 
 # installing gawk for juicer
 RUN echo 'alias awk=gawk' >> ~/.bashrc
