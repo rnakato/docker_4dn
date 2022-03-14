@@ -76,7 +76,7 @@ ENV LANG=C.UTF-8
 
 # wrapper
 COPY scripts/ .
-RUN chmod +x run*.sh
+RUN chmod +x run*.sh /usr/local/bin/*
 
 # default command
 CMD ["run-list.sh"]
