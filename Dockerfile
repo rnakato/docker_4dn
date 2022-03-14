@@ -13,6 +13,7 @@ RUN apt-get update \
     libncurses-dev \
     libxml2-dev \
     make \
+    more \
     python3.6-dev \
     python3-setuptools \
     samtools \
